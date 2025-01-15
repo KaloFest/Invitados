@@ -13,16 +13,13 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;  /* Esto hace que el contenido se centre verticalmente */
+            height: 100vh; /* Centrado vertical */
             color: #ffffff;
             animation: gradientMove 10s infinite;
-            position: relative;
-            text-align: center;  /* Esto asegura que el texto esté centrado */
+            overflow: hidden; /* Evita scroll no deseado */
         }
-
 
         @keyframes gradientMove {
             0%, 100% {
@@ -33,15 +30,20 @@
             }
         }
 
+        .center-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center; /* Centrado horizontal */
+        }
+
         h1 {
-            margin-top: 20px;
+            margin: 0;
             font-size: 2.5rem;
             color: #137d68;
-            text-align: center; /* Centrando el texto */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
             animation: float 3s infinite ease-in-out;
-            z-index: 1;
-            
         }
 
         @keyframes float {
@@ -57,7 +59,6 @@
             font-size: 1.2rem;
             margin: 10px 20px;
             animation: float 4s infinite ease-in-out;
-            z-index: 1;
         }
 
         .photo {
@@ -68,7 +69,6 @@
             overflow: hidden;
             border: 5px solid #137d68;
             animation: pulse 2s infinite;
-            z-index: 1;
         }
 
         .photo img {
@@ -98,8 +98,6 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            animation: float 6s infinite ease-in-out;
-            z-index: 1;
         }
 
         .button:hover {
@@ -177,19 +175,41 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Estilo de fuegos artificiales */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: explode 1s forwards;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>¡Estás invitado al cumpleaños de Kaloyero!</h1>
-    <p>Kaloyero cumple 20 años y quiere celebrarlo contigo.</p>
+    <div class="center-text">
+        <h1>¡Estás invitado al cumpleaños de Kaloyero!</h1>
+        <p>Kaloyero cumple 20 años y quiere celebrarlo contigo.</p>
 
-    <div class="photo">
-        <img src="KALO.jpg" alt="KALO">
+        <div class="photo">
+            <img src="KALO.jpg" alt="KALO">
+        </div>
+
+        <button class="button" onclick="openModal('restaurantModal')">Ver ubicación del restaurante</button>
+        <button class="button" onclick="openModal('houseModal')">Ver ubicación de Casa Kalo</button>
+        <button class="button" onclick="confirmAttendance()">Confirmar asistencia</button>
     </div>
-
-    <button class="button" onclick="openModal('restaurantModal')">Ver ubicación del restaurante</button>
-    <button class="button" onclick="openModal('houseModal')">Ver ubicación de Casa Kalo</button>
-    <button class="button" onclick="confirmAttendance()">Confirmar asistencia</button>
 
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
 
@@ -225,7 +245,25 @@
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
-
+        // Función para crear fuegos artificiales aleatorios dentro de los límites de la pantalla
+        function createFireworks() {
+            const maxWidth = window.innerWidth - 40; // Ajusta según el tamaño del fuego artificial
+            const maxHeight = window.innerHeight - 40;
+            for (let i = 0; i < 10; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                const x = Math.random() * maxWidth;
+                const y = Math.random() * maxHeight;
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+                document.body.appendChild(firework);
+                // Remover el fuego artificial después de que termine la animación
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+        }
+        // Llamar la función para crear fuegos artificiales cada 1 segundo
         setInterval(createFireworks, 1000);
     </script>
 </body>
