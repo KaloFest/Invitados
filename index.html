@@ -16,11 +16,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 100vh;  /* Esto hace que el contenido se centre verticalmente */
             color: #ffffff;
             animation: gradientMove 10s infinite;
             position: relative;
+            text-align: center;  /* Esto asegura que el texto esté centrado */
         }
+
 
         @keyframes gradientMove {
             0%, 100% {
@@ -35,9 +37,11 @@
             margin-top: 20px;
             font-size: 2.5rem;
             color: #137d68;
+            text-align: center; /* Centrando el texto */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
             animation: float 3s infinite ease-in-out;
             z-index: 1;
+            
         }
 
         @keyframes float {
@@ -147,36 +151,13 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
-            float: right; /* Alinea el botón a la derecha */
+            float: right;
         }
 
         .close-button:hover {
             background-color: #a84237;
         }
 
-
-        /* Estilo de fuegos artificiales */
-        .firework {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            animation: explode 1s forwards;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-            }
-        }
-
-        /* Media queries */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -212,18 +193,17 @@
 
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
 
-    <!-- Modales -->
     <div class="modal" id="restaurantModal">
         <h2>Buffalos Rodizio</h2>
         <p>De 7:00 PM a 9:00 PM</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.5666277894006!2d-66.15363912493662!3d-17.384574364117896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e37405d63cef97%3A0xc4a38dad70455f5!2sBUFALOS%20RODIZIO%20RESTAURANTE!5e0!3m2!1ses-419!2sbo!4v1736894726515!5m2!1ses-419!2sbo" gestureHandling="greedy" allowfullscreen></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=..." gestureHandling="greedy" allowfullscreen></iframe>
         <button class="close-button" onclick="closeModal()">Cerrar</button>
     </div>
 
     <div class="modal" id="houseModal">
         <h2>Casa Kalo</h2>
         <p>De 9:00 PM a 11:00 PM</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.8900196218854!2d-66.15637663171401!3d-17.401752947001906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373f1d6f33933%3A0x878db8a58a8d849c!2sHRXV%2B978%2C%20Agustin%20Lopez%2C%20Cochabamba!5e0!3m2!1ses-419!2sbo!4v1736894878450!5m2!1ses-419!2sbo" gestureHandling="greedy" allowfullscreen></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=..." gestureHandling="greedy" allowfullscreen></iframe>
         <button class="close-button" onclick="closeModal()">Cerrar</button>
     </div>
 
@@ -246,31 +226,6 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Función para crear fuegos artificiales aleatorios dentro de los límites de la pantalla
-        function createFireworks() {
-            const maxWidth = window.innerWidth - 40; // Ajusta según el tamaño del fuego artificial
-            const maxHeight = window.innerHeight - 40;
-
-            for (let i = 0; i < 10; i++) {
-                const firework = document.createElement('div');
-                firework.classList.add('firework');
-
-                const x = Math.random() * maxWidth;
-                const y = Math.random() * maxHeight;
-
-                firework.style.left = `${x}px`;
-                firework.style.top = `${y}px`;
-
-                document.body.appendChild(firework);
-
-                // Remover el fuego artificial después de que termine la animación
-                setTimeout(() => {
-                    firework.remove();
-                }, 1000);
-            }
-        }
-
-        // Llamar la función para crear fuegos artificiales cada 1 segundo
         setInterval(createFireworks, 1000);
     </script>
 </body>
