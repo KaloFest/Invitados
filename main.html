@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Cumpleaños</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #003366, #1a5276);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1rem;
+            margin: 10px 20px;
+        }
+
+        .photo {
+            margin: 20px auto;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #1abc9c;
+            animation: pulse 2s infinite;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .button {
+            display: inline-block;
+            margin: 15px 10px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #16a085;
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            z-index: 1000;
+        }
+
+        .modal iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .close-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .close-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Media queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                margin: 5px 15px;
+            }
+
+            .photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .modal iframe {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .photo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .button {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Estás invitado al cumpleaños de Kaloyero!</h1>
+    <p>Kaloyero cumple 20 años y quiere celebrarlo contigo.</p>
+
+    <div class="photo">
+        <img src="KALO.jpg" alt="KALO">
+    </div>
+
+    <button class="button" onclick="openModal('restaurantModal')">Ver ubicación del restaurante</button>
+    <button class="button" onclick="openModal('houseModal')">Ver ubicación de Casa Kalo</button>
+    <button class="button" onclick="confirmAttendance()">Confirmación de asistencia</button>
+
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+    <!-- Modal Restaurante -->
+    <div class="modal" id="restaurantModal">
+        <h2>Buffalos Rodizio</h2>
+        <p>De 7:00 PM a 9:00 PM</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.5666277894006!2d-66.15363912493662!3d-17.384574364117896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e37405d63cef97%3A0xc4a38dad70455f5!2sBUFALOS%20RODIZIO%20RESTAURANTE!5e0!3m2!1ses-419!2sbo!4v1736894726515!5m2!1ses-419!2sbo" allowfullscreen loading="lazy"></iframe>
+        <button class="close-button" onclick="closeModal()">Cerrar</button>
+    </div>
+
+    <!-- Modal Casa Kalo -->
+    <div class="modal" id="houseModal">
+        <h2>Casa Kalo</h2>
+        <p>De 9:00 PM a 11:00 PM</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.8900196218854!2d-66.15637663171401!3d-17.401752947001906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373f1d6f33933%3A0x878db8a58a8d849c!2sHRXV%2B978%2C%20Agustin%20Lopez%2C%20Cochabamba!5e0!3m2!1ses-419!2sbo!4v1736894878450!5m2!1ses-419!2sbo" allowfullscreen loading="lazy"></iframe>
+        <button class="close-button" onclick="closeModal()">Cerrar</button>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => modal.style.display = 'none');
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function confirmAttendance() {
+            const message = "Confirmo mi asistencia para el cumpleaños de Kalo";
+            const phoneNumber = "59165503628";
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
