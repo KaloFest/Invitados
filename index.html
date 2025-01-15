@@ -5,33 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación de Cumpleaños</title>
     <style>
-        /* Estilos generales */
+        /* Estilo general */
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #003366, #1a5276);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #003366, #005f99, #1abc9c);
+            background-size: 400% 400%;
             margin: 0;
             padding: 0;
-            text-align: center;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #ffffff;
+            animation: gradientMove 10s infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         h1 {
             margin-top: 20px;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            color: #137d68;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         p {
-            font-size: 1rem;
+            font-size: 1.2rem;
             margin: 10px 20px;
+            animation: float 4s infinite ease-in-out;
         }
 
         .photo {
             margin: 20px auto;
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid #1abc9c;
+            border: 5px solid #137d68;
             animation: pulse 2s infinite;
         }
 
@@ -53,19 +81,22 @@
         .button {
             display: inline-block;
             margin: 15px 10px;
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            background-color: #1abc9c;
+            padding: 12px 30px;
+            font-size: 1rem;
+            background-color: #137d68;
             color: white;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: float 6s infinite ease-in-out;
         }
 
         .button:hover {
-            background-color: #16a085;
-            transform: translateY(-2px);
+            background-color: #137d68;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .modal {
@@ -78,17 +109,17 @@
             max-width: 400px;
             background-color: white;
             color: black;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            padding: 20px;
             z-index: 1000;
         }
 
         .modal iframe {
             width: 100%;
-            height: 200px;
+            height: 250px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
         .overlay {
@@ -103,59 +134,38 @@
         }
 
         .close-button {
-            margin-top: 10px;
+            margin-top: 15px;
             padding: 10px;
-            background-color: #e74c3c;
+            background-color: #972e22;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
         }
 
         .close-button:hover {
-            background-color: #c0392b;
+            background-color: #972e22;
         }
 
-        /* Media queries para dispositivos móviles */
+        /* Media queries */
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
 
             p {
+                font-size: 1rem;
+            }
+
+            .photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .button {
+                padding: 10px 20px;
                 font-size: 0.9rem;
-                margin: 5px 15px;
-            }
-
-            .photo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .button {
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
-
-            .modal iframe {
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.2rem;
-            }
-
-            .photo {
-                width: 80px;
-                height: 80px;
-            }
-
-            .button {
-                padding: 6px 12px;
-                font-size: 0.7rem;
             }
         }
     </style>
@@ -170,23 +180,22 @@
 
     <button class="button" onclick="openModal('restaurantModal')">Ver ubicación del restaurante</button>
     <button class="button" onclick="openModal('houseModal')">Ver ubicación de Casa Kalo</button>
-    <button class="button" onclick="confirmAttendance()">Confirmación de asistencia</button>
+    <button class="button" onclick="confirmAttendance()">Confirmar asistencia</button>
 
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
 
-    <!-- Modal Restaurante -->
+    <!-- Modales -->
     <div class="modal" id="restaurantModal">
         <h2>Buffalos Rodizio</h2>
         <p>De 7:00 PM a 9:00 PM</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.5666277894006!2d-66.15363912493662!3d-17.384574364117896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e37405d63cef97%3A0xc4a38dad70455f5!2sBUFALOS%20RODIZIO%20RESTAURANTE!5e0!3m2!1ses-419!2sbo!4v1736894726515!5m2!1ses-419!2sbo" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.5666277894006!2d-66.15363912493662!3d-17.384574364117896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e37405d63cef97%3A0xc4a38dad70455f5!2sBUFALOS%20RODIZIO%20RESTAURANTE!5e0!3m2!1ses-419!2sbo!4v1736894726515!5m2!1ses-419!2sbo" gestureHandling="greedy" allowfullscreen></iframe>
         <button class="close-button" onclick="closeModal()">Cerrar</button>
     </div>
 
-    <!-- Modal Casa Kalo -->
     <div class="modal" id="houseModal">
         <h2>Casa Kalo</h2>
         <p>De 9:00 PM a 11:00 PM</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.8900196218854!2d-66.15637663171401!3d-17.401752947001906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373f1d6f33933%3A0x878db8a58a8d849c!2sHRXV%2B978%2C%20Agustin%20Lopez%2C%20Cochabamba!5e0!3m2!1ses-419!2sbo!4v1736894878450!5m2!1ses-419!2sbo" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.8900196218854!2d-66.15637663171401!3d-17.401752947001906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373f1d6f33933%3A0x878db8a58a8d849c!2sHRXV%2B978%2C%20Agustin%20Lopez%2C%20Cochabamba!5e0!3m2!1ses-419!2sbo!4v1736894878450!5m2!1ses-419!2sbo" gestureHandling="greedy" allowfullscreen></iframe>
         <button class="close-button" onclick="closeModal()">Cerrar</button>
     </div>
 
