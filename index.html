@@ -19,6 +19,7 @@
             color: #ffffff;
             animation: gradientMove 10s infinite;
             overflow: hidden; /* Evita scroll no deseado */
+            position: relative; /* Asegura que los fuegos artificiales estén en el fondo */
         }
 
         @keyframes gradientMove {
@@ -36,6 +37,8 @@
             align-items: center;
             justify-content: center;
             text-align: center; /* Centrado horizontal */
+            position: relative; /* Asegura que el contenido esté por encima de los fuegos artificiales */
+            z-index: 10; /* Asegura que el contenido esté por encima */
         }
 
         h1 {
@@ -186,6 +189,7 @@
             background-color: #ffffff;
             border-radius: 50%;
             animation: explode 1s forwards;
+            z-index: 1; /* Asegura que los fuegos artificiales estén en el fondo */
         }
         @keyframes explode {
             0% {
