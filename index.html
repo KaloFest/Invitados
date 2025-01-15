@@ -19,6 +19,7 @@
             height: 100vh;
             color: #ffffff;
             animation: gradientMove 10s infinite;
+            position: relative;
         }
 
         @keyframes gradientMove {
@@ -36,6 +37,7 @@
             color: #137d68;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
             animation: float 3s infinite ease-in-out;
+            z-index: 1;
         }
 
         @keyframes float {
@@ -51,6 +53,7 @@
             font-size: 1.2rem;
             margin: 10px 20px;
             animation: float 4s infinite ease-in-out;
+            z-index: 1;
         }
 
         .photo {
@@ -61,6 +64,7 @@
             overflow: hidden;
             border: 5px solid #137d68;
             animation: pulse 2s infinite;
+            z-index: 1;
         }
 
         .photo img {
@@ -91,6 +95,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             animation: float 6s infinite ease-in-out;
+            z-index: 1;
         }
 
         .button:hover {
@@ -142,10 +147,33 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
+            float: right; /* Alinea el botón a la derecha */
         }
 
         .close-button:hover {
-            background-color: #972e22;
+            background-color: #a84237;
+        }
+
+
+        /* Estilo de fuegos artificiales */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
         }
 
         /* Media queries */
@@ -217,6 +245,33 @@
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        // Función para crear fuegos artificiales aleatorios dentro de los límites de la pantalla
+        function createFireworks() {
+            const maxWidth = window.innerWidth - 40; // Ajusta según el tamaño del fuego artificial
+            const maxHeight = window.innerHeight - 40;
+
+            for (let i = 0; i < 10; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+
+                const x = Math.random() * maxWidth;
+                const y = Math.random() * maxHeight;
+
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+
+                document.body.appendChild(firework);
+
+                // Remover el fuego artificial después de que termine la animación
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+        }
+
+        // Llamar la función para crear fuegos artificiales cada 1 segundo
+        setInterval(createFireworks, 1000);
     </script>
 </body>
 </html>
